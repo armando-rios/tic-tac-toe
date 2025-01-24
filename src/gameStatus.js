@@ -12,6 +12,12 @@ export const gameStatus = (turn, p1, p2) => {
 const checkDraw = (p1, p2) => {
   if (p1.length == 5) {
     app.style.pointerEvents = "none"
+    p1.forEach(item => {
+      document.getElementById(item).classList.add("bg-yellow-200", "duration-700", "text-black", "text-2xl")
+    });
+    p2.forEach(item => {
+      document.getElementById(item).classList.add("bg-orange-200", "duration-700", "text-black", "text-2xl")
+    });
     setTimeout(() => {
       p1.length = 0
       p2.length = 0
@@ -60,5 +66,3 @@ const checkVictory = (p1, p2) => {
     }
   }
 }
-
-// resetPlayer() { }
