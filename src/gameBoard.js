@@ -6,7 +6,7 @@ export function gameBoard() {
     const test = document.createElement("div")
     test.setAttribute("id", pos)
     test.addEventListener("click", () => { updateBoard(pos) })
-    test.classList.add("flex", "justify-center", "items-center", "border", "w-16", "h-16", "rounded-lg", "hover:scale-110", "duration-150", "cursor-pointer", "select-none")
+    test.classList.add("flex", "justify-center", "items-center", "border", "w-16", "h-16", "rounded-lg", "hover:scale-110", "duration-150", "cursor-pointer", "select-none", "font-bold")
     app.appendChild(test)
   })
 }
