@@ -42,9 +42,6 @@ const checkVictory = (p1, p2) => {
     }
     if (final) {
       app.style.pointerEvents = "none"
-      // app.children.map((item) => {
-      //
-      // })
       p2.forEach(item => {
         document.getElementById(item).classList.add("bg-red-300", "duration-700", "text-black", "text-2xl")
       });
