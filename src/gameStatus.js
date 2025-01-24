@@ -11,11 +11,14 @@ export const gameStatus = (turn, p1, p2) => {
 
 const checkDraw = (p1, p2) => {
   if (p1.length == 5) {
-    console.log("empate")
-    p1.length = 0
-    p2.length = 0
-    app.innerHTML = ""
-    gameBoard()
+    app.style.pointerEvents = "none"
+    setTimeout(() => {
+      p1.length = 0
+      p2.length = 0
+      app.innerHTML = ""
+      app.style.pointerEvents = "auto"
+      gameBoard()
+    }, 2000)
   }
 }
 
@@ -39,6 +42,15 @@ const checkVictory = (p1, p2) => {
     }
     if (final) {
       app.style.pointerEvents = "none"
+      // app.children.map((item) => {
+      //
+      // })
+      p2.forEach(item => {
+        document.getElementById(item).classList.add("bg-red-300", "duration-700", "text-black", "text-2xl")
+      });
+      wins[i].forEach(item => {
+        document.getElementById(item).classList.add("bg-green-300", "duration-700", "text-black", "text-2xl")
+      })
       setTimeout(() => {
         console.log(`Wins: ${p1} | ${wins[i]}`)
         app.innerHTML = ""
