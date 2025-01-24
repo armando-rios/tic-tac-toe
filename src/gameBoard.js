@@ -1,5 +1,8 @@
 import { gameStatus } from "./gameStatus"
 export function gameBoard() {
+  if (!turn) {
+    turn = true
+  }
   let layout = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
   layout.forEach(pos => {
@@ -15,7 +18,8 @@ let turn = true
 const player1 = []
 const player2 = []
 
-function updateBoard(pos) {
+function updateBoard(pos) { // pos = id
+  console.log(turn)
   const div = document.getElementById(pos)
   if (div.textContent == "") {
     turn ? player1.push(pos) : player2.push(pos)
