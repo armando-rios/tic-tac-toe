@@ -5,33 +5,45 @@ on:
     branches:
       - main # Cambia "main" si usas otro branch como predeterminado
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      # Paso 1: Descargar el código fuente
+      - uses: actions/checkout@v4
 
-    - name: Setup Node.js 22
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20 # Versión estable actual de Node.js
-        cache: 'yarn'
+      # Paso 2: Configurar Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22 # Usamos la versión más reciente compatible
 
-    - name: Install dependencies with Yarn
-      run: yarn install
+      # Paso 3: Instalar dependencias con Yarn
+      - run: yarn install
 
-    - name: Build project
-      run: yarn build
+      # Paso 4: Construir el proyecto
+      - run: yarn build
 
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    steps:
+      # Paso 1: Descargar el código fuente nuevamente
+      - uses: actions/checkout@v4
+
+      # Paso 2: Configurar Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Paso 3: Instalar dependencias con Yarn
+      - run: yarn install
+
+      # Paso 4: Deploy a GitHub Pages
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
