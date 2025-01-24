@@ -1,24 +1,25 @@
 import { gameBoard } from "./gameBoard"
 
 export const gameStatus = (turn, p1, p2) => {
-
-  checkDraw(p1)
+  checkDraw(p1, p2)
   if (turn) {
-    checkVictory(p1)
+    checkVictory(p1, p2)
   } else {
-    checkVictory(p2)
+    checkVictory(p2, p1)
   }
 }
 
-const checkDraw = (p) => {
-  if (p.length == 5) {
+const checkDraw = (p1, p2) => {
+  if (p1.length == 5) {
     console.log("empate")
+    p1.length = 0
+    p2.length = 0
     app.innerHTML = ""
     gameBoard()
   }
 }
 
-const checkVictory = (p) => {
+const checkVictory = (p1, p2) => {
   const wins = [
     [1, 2, 3],
     [4, 5, 6],
@@ -32,16 +33,23 @@ const checkVictory = (p) => {
   for (let i = 0; i < wins.length; i++) {
     let final = false
     for (let j = 0; j < 3; j++) {
-      let res = p.includes(wins[i][j]);
-      if (res) {
-        final = true
-      } else {
-        final = false
-        break
-      }
+      let res = p1.includes(wins[i][j]);
+      final = res ? true : false;
+      if (!res) break;
     }
     if (final) {
-      alert("Wins: " + p)
+      app.style.pointerEvents = "none"
+      setTimeout(() => {
+        console.log(`Wins: ${p1} | ${wins[i]}`)
+        app.innerHTML = ""
+        p1.length = 0
+        p2.length = 0
+        app.style.pointerEvents = "auto"
+        gameBoard()
+      }, 2000)
+      break
     }
   }
 }
+
+// resetPlayer() { }
