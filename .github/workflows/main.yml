@@ -1,49 +1,49 @@
-name: Deploy Vite to GitHub Pages
+name: Deploy
 
 on:
   push:
     branches:
-      - main # Cambia "main" si usas otro branch como predeterminado
+      - main
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
+
     steps:
-      # Paso 1: Descargar el código fuente
-      - uses: actions/checkout@v4
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-      # Paso 2: Configurar Node.js
-      - uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v3
+
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
+
+      - name: Build project
+        run: npm run build
+
+      - name: Upload production-ready build files
+        uses: actions/upload-artifact@v3
         with:
-          node-version: 22 # Usamos la versión más reciente compatible
-
-      # Paso 3: Instalar dependencias con Yarn
-      - run: yarn install
-
-      # Paso 4: Construir el proyecto
-      - run: yarn build
+          name: production-files
+          path: ./dist
 
   deploy:
+    name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
+    if: github.ref == 'refs/heads/main'
+
     steps:
-      # Paso 1: Descargar el código fuente nuevamente
-      - uses: actions/checkout@v4
-
-      # Paso 2: Configurar Node.js
-      - uses: actions/setup-node@v4
+      - name: Download artifact
+        uses: actions/download-artifact@v3
         with:
-          node-version: 22
+          name: production-files
+          path: ./dist
 
-      # Paso 3: Instalar dependencias con Yarn
-      - run: yarn install
-
-      # Paso 4: Deploy a GitHub Pages
-      - uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
