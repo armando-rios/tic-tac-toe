@@ -1,4 +1,4 @@
-export const watcher = (turn, p1, p2) => {
+export const gameStatus = (turn, p1, p2) => {
   const wins = [
     [1, 2, 3],
     [4, 5, 6],
