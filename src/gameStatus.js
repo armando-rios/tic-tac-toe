@@ -3,15 +3,17 @@ import { gameBoard } from "./gameBoard"
 export const gameStatus = (turn, p1, p2) => {
   checkDraw(p1, p2)
   if (turn) {
-    checkVictory(p1, p2)
+    checkVictory(p1, p2, turn)
   } else {
-    checkVictory(p2, p1)
+    checkVictory(p2, p1, turn)
   }
 }
 
 const checkDraw = (p1, p2) => {
   if (p1.length == 5) {
     app.style.pointerEvents = "none"
+    message.innerText = "Draw"
+    message.classList.add("bg-yellow-200", "top-10", "duration-500")
     p1.forEach(item => {
       document.getElementById(item).classList.add("bg-yellow-200", "duration-700", "text-black", "text-2xl")
     });
@@ -28,7 +30,7 @@ const checkDraw = (p1, p2) => {
   }
 }
 
-const checkVictory = (p1, p2) => {
+const checkVictory = (p1, p2, turn) => {
   const wins = [
     [1, 2, 3],
     [4, 5, 6],
@@ -47,6 +49,8 @@ const checkVictory = (p1, p2) => {
       if (!res) break;
     }
     if (final) {
+      message.innerText = `${turn ? "O" : "X"} Wins`
+      message.classList.add("bg-green-300", "top-10", "duration-500")
       app.style.pointerEvents = "none"
       p2.forEach(item => {
         document.getElementById(item).classList.add("bg-red-300", "duration-700", "text-black", "text-2xl")

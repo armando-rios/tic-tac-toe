@@ -1,5 +1,8 @@
 import { gameStatus } from "./gameStatus"
 export function gameBoard() {
+  message.innerText = ""
+  message.classList.remove("bg-yellow-200", "bg-green-300", "bg-red-300", "top-10", "duration-500")
+
   if (!turn) {
     turn = true
   }
