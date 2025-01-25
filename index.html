@@ -9,9 +9,10 @@
   <title>TicTacToe</title>
 </head>
 
-<body class="bg-slate-900 text-white">
+<body class="bg-slate-900 text-white flex flex-col items-center justify-center w-screen h-screen p-8">
   <h1 class="text-4xl font-bold p-4 text-center">Tic Tac Toe</h1>
-  <div class="border-sky-50 w-fit grid grid-cols-3 gap-4 m-auto" id="app"></div>
+  <div class="border-sky-50 w-fit grid grid-cols-3 gap-4" id="app"></div>
+  <div id="message" class="p-4 font-4xl text-black rounded-xl w-56 text-center font-bold fixed -top-14"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
 
