@@ -7,6 +7,9 @@ export const gameStatus = (turn, p1, p2) => {
   } else {
     checkVictory(p2, p1, turn)
   }
+  if (message.innerText !== "O Wins" && message.innerText !== "X Wins") {
+    checkDraw(p1, p2);
+  }
 }
 
 const checkDraw = (p1, p2) => {
