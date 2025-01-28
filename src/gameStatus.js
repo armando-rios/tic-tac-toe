@@ -1,7 +1,6 @@
 import { gameBoard } from "./gameBoard"
 
 export const gameStatus = (turn, p1, p2) => {
-  checkDraw(p1, p2)
   if (turn) {
     checkVictory(p1, p2, turn)
   } else {
